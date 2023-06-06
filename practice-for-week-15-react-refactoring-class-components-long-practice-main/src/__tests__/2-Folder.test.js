@@ -24,7 +24,7 @@ describe('Folder', ()=> {
     expect(await screen.findByText('Second folder here')).toBeInTheDocument();
     expect(screen.queryByText('I am the first')).not.toBeInTheDocument();
     expect(screen.queryByText('Third folder here')).not.toBeInTheDocument();
-    
+
     const tab3 = screen.getByText('three');
     userEvent.click(tab3);
     await waitFor(() => expect(screen.queryByText('Second folder here')).not.toBeInTheDocument());
