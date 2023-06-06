@@ -9,20 +9,20 @@ enableFetchMocks();
 // `getCurrentPosition` will return predictable responses. Simply mocking the
 // function, however, is not enough: `navigator.geolocation` could be
 // `undefined`--and consequently unable to run `getCurrentPosition`--if, e.g.,
-// location services are turned off in the testing environment. 
+// location services are turned off in the testing environment.
 //
 // These tests accordingly also need to mock `navigator.geolocation` to ensure
 // that it exists (with `getCurrentPosition` defined on it). This is done by 1)
 // saving the original `navigator.geolocation`, 2) assigning
 // `navigator.geolocation` to a mock object, and 3) restoring the original
-// `navigator.geolocation` at the conclusion of the tests. 
+// `navigator.geolocation` at the conclusion of the tests.
 const originalGeolocation = navigator.geolocation;
 const mockGeolocation = {
   getCurrentPosition: jest.fn()
 }
 
 // Jest has not implemented `window.alert` in the jest-dom environment, so
-// calling it in the code being tested will throw an error if it is not mocked. 
+// calling it in the code being tested will throw an error if it is not mocked.
 jest.spyOn(window, 'alert');
 
 describe('Folder', ()=> {
@@ -32,13 +32,13 @@ describe('Folder', ()=> {
     mockGeolocation.getCurrentPosition.mockImplementation(fn => fn({
       coords: {
         // NY coords
-        latitude: 40.730610, 
+        latitude: 40.730610,
         longitude: -73.935242
       }
     }));
     navigator.geolocation = mockGeolocation;
     fetch.resetMocks();
-    fetch.mockResponse(JSON.stringify({ 
+    fetch.mockResponse(JSON.stringify({
       name: 'New York City',
       main: {
         temp: 300
